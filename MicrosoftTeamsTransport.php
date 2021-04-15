@@ -59,9 +59,7 @@ final class MicrosoftTeamsTransport extends AbstractTransport
         $path = $message->getRecipientId() ?? $this->path;
         $endpoint = sprintf('https://%s%s', $this->getEndpoint(), $path);
         $response = $this->client->request('POST', $endpoint, [
-            'json' => [
-                'title' => $message->getSubject(),
-            ],
+            'json' => json_decode($message->getSubject())
         ]);
 
         $requestId = $response->getHeaders(false)['request-id'][0] ?? null;
