@@ -81,7 +81,7 @@ final class MicrosoftTeamsOptions implements MessageOptionsInterface
      */
     public function recipient(string $path): self
     {
-        if (!preg_match('/^\/webhook\//', $path)) {
+        if (!preg_match('/^\/webhook\//', $path) && !preg_match('/^\/webhookb2\//', $path)) {
             throw new InvalidArgumentException(sprintf('"%s" require recipient id format to be "/webhook/{uuid}@{uuid}/IncomingWebhook/{id}/{uuid}", "%s" given.', __CLASS__, $path));
         }
 
