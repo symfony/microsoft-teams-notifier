@@ -71,7 +71,7 @@ final class MultiChoiceInputTest extends AbstractInputTestCase
     }
 
     #[DataProvider('styles')]
-    public function testStyleThrowsWithUnknownStyle()
+    public function testStyleThrowsWithUnknownStyle(string $value)
     {
         $this->expectException(InvalidArgumentException::class);
 
