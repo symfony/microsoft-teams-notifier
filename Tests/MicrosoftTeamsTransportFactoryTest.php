@@ -27,6 +27,11 @@ final class MicrosoftTeamsTransportFactoryTest extends TransportFactoryTestCase
             'microsoftteams://host/webhook',
             'microsoftteams://host/webhook',
         ];
+
+        yield [
+            'microsoftteams://default.89.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/abc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zzz-pke5SoaQgnoI8',
+            'microsoftteams://default.89.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/abc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zzz-pke5SoaQgnoI8',
+        ];
     }
 
     public static function supportsProvider(): iterable
