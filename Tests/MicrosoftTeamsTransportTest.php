@@ -71,6 +71,29 @@ final class MicrosoftTeamsTransportTest extends TransportTestCase
         $transport->send(new ChatMessage('testMessage'));
     }
 
+    public function testSendWithErrorResponseWithoutRequestIdThrowsActualError()
+    {
+        $client = new MockHttpClient(new MockResponse('actualErrorBody', ['http_code' => 400]));
+
+        $transport = self::createTransport($client);
+
+        $this->expectException(TransportException::class);
+        $this->expectExceptionMessageMatches('/actualErrorBody/');
+
+        $transport->send(new ChatMessage('testMessage'));
+    }
+
+    public function testSendViaWorkflowAcceptsAcceptedStatusAndServiceRequestIdHeader()
+    {
+        $client = new MockHttpClient(new MockResponse('', ['response_headers' => ['x-ms-service-request-id' => ['testServiceRequestId']], 'http_code' => 202]));
+
+        $transport = self::createTransport($client);
+
+        $sentMessage = $transport->send(new ChatMessage('testMessage'));
+
+        $this->assertSame('testServiceRequestId', $sentMessage->getMessageId());
+    }
+
     public function testSend()
     {
         $message = 'testMessage';
